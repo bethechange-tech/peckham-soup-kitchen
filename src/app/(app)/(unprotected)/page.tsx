@@ -1,24 +1,26 @@
 'use client';
-import { useState } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 
 export default function Home() {
   return (
     <>
       <main className="container mx-auto my-8 md:my-16 px-4">
         {/* Welcome Section */}
-        <section className="text-center bg-green-100 p-6 md:p-10 rounded-lg shadow-md mb-8 md:mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-green-800 mb-4">
+        <section className="text-center bg-teal-100 p-6 md:p-10 rounded-lg shadow-md mb-8 md:mb-16">
+          <h2 className="text-3xl md:text-4xl font-bold text-teal-800 mb-4">
             Welcome To Peckham Soup Kitchen
           </h2>
-          <p className="text-green-600 mb-6 max-w-2xl mx-auto">
+          <p className="text-teal-600 mb-6 max-w-2xl mx-auto">
             At Peckham Soup Kitchen, we work continuously to support members of the
             Southwark community in need and empower them to improve their lives and
             wellbeing.
           </p>
-          <button className="hero-button bg-green-600 text-white px-6 py-2 md:px-8 md:py-3 rounded-full shadow-md transform transition duration-300 ease-in-out hover:bg-green-700 hover:-translate-y-1">
-            Get Started
-          </button>
+          <Link href={'/donate'}>
+            <button className="hero-button bg-teal-600 text-white px-6 py-2 md:px-8 md:py-3 rounded-full shadow-md transform transition duration-300 ease-in-out hover:bg-teal-700 hover:-translate-y-1">
+              Get Started
+            </button>
+          </Link>
         </section>
 
         {/* Our Services Section */}
@@ -33,7 +35,7 @@ export default function Home() {
             >
               <div className="absolute inset-0 bg-black opacity-60 rounded-lg"></div>
               <div className="relative z-10 text-left">
-                <div className="flex items-center justify-center h-12 w-12 bg-purple-800 bg-opacity-75 rounded-full mb-4">
+                <div className="flex items-center justify-center h-12 w-12 bg-teal-800 bg-opacity-75 rounded-full mb-4">
                   <Image
                     src="/icons/friday-food-hub-icon.png"
                     alt="Friday Food Hub Icon"
@@ -57,7 +59,7 @@ export default function Home() {
             >
               <div className="absolute inset-0 bg-black opacity-60 rounded-lg"></div>
               <div className="relative z-10 text-left">
-                <div className="flex items-center justify-center h-12 w-12 bg-green-800 bg-opacity-75 rounded-full mb-4">
+                <div className="flex items-center justify-center h-12 w-12 bg-teal-800 bg-opacity-75 rounded-full mb-4">
                   <Image
                     src="/icons/wednesday-food-outreach-icon.png"
                     alt="Wednesday Food Outreach Icon"
@@ -81,7 +83,7 @@ export default function Home() {
             >
               <div className="absolute inset-0 bg-black opacity-60 rounded-lg"></div>
               <div className="relative z-10 text-left">
-                <div className="flex items-center justify-center h-12 w-12 bg-pink-800 bg-opacity-75 rounded-full mb-4">
+                <div className="flex items-center justify-center h-12 w-12 bg-teal-800 bg-opacity-75 rounded-full mb-4">
                   <Image
                     src="/icons/initiatives-icon.png"
                     alt="Initiatives Icon"
@@ -156,7 +158,7 @@ export default function Home() {
                   alt={`${volunteer.title} Icon`}
                   className="mb-4 h-16 w-16"
                 />
-                <h4 className="text-xl md:text-2xl font-bold mb-2 text-green-700">
+                <h4 className="text-xl md:text-2xl font-bold mb-2 text-teal-700">
                   {volunteer.title}
                 </h4>
                 <p className="text-gray-600 text-center">{volunteer.description}</p>
@@ -164,7 +166,7 @@ export default function Home() {
             ))}
           </div>
           <div className="text-center mt-8">
-            <a href="#" className="inline-block bg-green-600 text-white px-6 py-3 rounded-full shadow-md transform transition duration-300 ease-in-out hover:bg-green-700 hover:-translate-y-1">
+            <a href="#" className="inline-block bg-teal-600 text-white px-6 py-3 rounded-full shadow-md transform transition duration-300 ease-in-out hover:bg-teal-700 hover:-translate-y-1">
               Get Involved
             </a>
           </div>
@@ -210,7 +212,7 @@ export default function Home() {
                   <p className="text-gray-700 mb-4">
                     {program.description}
                   </p>
-                  <button className="inline-block bg-green-600 text-white px-6 py-2 rounded-full shadow-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50 transition duration-300">
+                  <button className="inline-block bg-teal-600 text-white px-6 py-2 rounded-full shadow-md hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-opacity-50 transition duration-300">
                     Learn More
                   </button>
                 </div>
@@ -227,7 +229,7 @@ export default function Home() {
           <div className="mb-4 mx-auto" style={{ maxWidth: '90%', height: 0, paddingBottom: '56.25%', position: 'relative' }}>
             <iframe
               className="absolute inset-0 w-full h-full"
-              src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+              src="https://www.youtube.com/embed/1kcLo91Qkcc"
               title="YouTube video player"
               frameBorder={0}
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -240,7 +242,7 @@ export default function Home() {
         </section>
 
         {/* Contact Us Section */}
-        <section className="bg-gradient-to-r from-green-400 to-green-500 p-6 md:p-10 rounded-lg shadow-md mb-8 md:mb-16">
+        <section className="bg-gradient-to-r from-teal-400 to-teal-500 p-6 md:p-10 rounded-lg shadow-md mb-8 md:mb-16">
           <h3 className="text-3xl md:text-4xl font-bold text-white text-center mb-4 md:mb-8">
             Get in Touch
           </h3>
@@ -256,7 +258,7 @@ export default function Home() {
                 type="text"
                 id="name"
                 name="name"
-                className="mt-2 p-3 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500"
+                className="mt-2 p-3 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-teal-500 focus:border-teal-500"
                 placeholder="Your Name"
               />
             </div>
@@ -271,7 +273,7 @@ export default function Home() {
                 type="email"
                 id="email"
                 name="email"
-                className="mt-2 p-3 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500"
+                className="mt-2 p-3 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-teal-500 focus:border-teal-500"
                 placeholder="Your Email"
               />
             </div>
@@ -286,13 +288,13 @@ export default function Home() {
                 id="message"
                 name="message"
                 rows={4}
-                className="mt-2 p-3 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500"
+                className="mt-2 p-3 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-teal-500 focus:border-teal-500"
                 placeholder="Your Message"
               />
             </div>
             <button
               type="submit"
-              className="w-full bg-green-600 text-white px-6 py-3 rounded-full shadow-md transform transition duration-300 ease-in-out hover:bg-green-700 hover:-translate-y-1"
+              className="w-full bg-teal-600 text-white px-6 py-3 rounded-full shadow-md transform transition duration-300 ease-in-out hover:bg-teal-700 hover:-translate-y-1"
             >
               Send Message
             </button>

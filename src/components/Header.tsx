@@ -1,5 +1,7 @@
 'use client';
 import { useState } from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
 
 const Header = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -8,26 +10,34 @@ const Header = () => {
         setIsMenuOpen(!isMenuOpen);
     };
 
-
     return (
-        <header className="bg-green-600 py-4 md:py-6">
+        <header className="bg-teal-600 py-4 md:py-6">
             <div className="container mx-auto flex justify-between items-center px-4">
-                <h1 className="text-white text-2xl md:text-3xl font-bold">
-                    Peckham Soup Kitchen
-                </h1>
+                <Link href="/">
+                    <div className="flex items-center cursor-pointer">
+                        <Image
+                            src="/images/logo-removebg-preview.png" // Replace with your logo path
+                            alt="Peckham Soup Kitchen Logo"
+                            width={60}
+                            height={60}
+                            style={{ width: "auto", height: "auto" }}
+                            className="mr-2"
+                        />
+                    </div>
+                </Link>
                 <nav className="hidden md:flex space-x-4 md:space-x-6 text-sm md:text-base">
-                    <a href="/" className="text-white hover:underline">
-                        Home
-                    </a>
-                    <a href="#" className="text-white hover:underline">
-                        About
-                    </a>
-                    <a href="#" className="text-white hover:underline">
-                        Programs
-                    </a>
-                    <a href="/donate" className="text-white hover:underline">
-                        Donate
-                    </a>
+                    <Link href="/">
+                        <div className="text-white hover:underline">Home</div>
+                    </Link>
+                    <Link href="/about">
+                        <div className="text-white hover:underline">About</div>
+                    </Link>
+                    <Link href="/news">
+                        <div className="text-white hover:underline">News</div>
+                    </Link>
+                    <Link href="/donate">
+                        <div className="text-white hover:underline">Donate</div>
+                    </Link>
                 </nav>
                 <div className="md:hidden">
                     <button
@@ -51,22 +61,22 @@ const Header = () => {
                     </button>
                 </div>
             </div>
-            <div className={`${isMenuOpen ? 'block' : 'hidden'} md:hidden bg-green-600`}>
-                <a href="#" className="block py-2 px-4 text-white hover:bg-green-700">
-                    Home
-                </a>
-                <a href="#" className="block py-2 px-4 text-white hover:bg-green-700">
-                    About
-                </a>
-                <a href="#" className="block py-2 px-4 text-white hover:bg-green-700">
-                    Programs
-                </a>
-                <a href="#" className="block py-2 px-4 text-white hover:bg-green-700">
-                    Donate
-                </a>
+            <div className={`${isMenuOpen ? 'block' : 'hidden'} md:hidden bg-teal-600`}>
+                <Link href="/">
+                    <div className="block py-2 px-4 text-white hover:bg-teal-700">Home</div>
+                </Link>
+                <Link href="/about">
+                    <div className="block py-2 px-4 text-white hover:bg-teal-700">About</div>
+                </Link>
+                <Link href="/news">
+                    <div className="block py-2 px-4 text-white hover:bg-teal-700">News</div>
+                </Link>
+                <Link href="/donate">
+                    <div className="block py-2 px-4 text-white hover:bg-teal-700">Donate</div>
+                </Link>
             </div>
         </header>
-    )
+    );
 }
 
-export default Header
+export default Header;

@@ -1,12 +1,22 @@
 import React from 'react';
 import Image from 'next/image';
 import { articles } from '../data';
+import Link from 'next/link';
+
+const getThreeRandomArticles = (allArticles: typeof articles) => {
+    // Shuffle the articles array
+    const shuffled = allArticles.sort(() => 0.5 - Math.random());
+    // Get the first three items from the shuffled array
+    return shuffled.slice(0, 3);
+};
+
 
 const NewsArticle = ({ params: { id: slug } }: {
     params: { id: string }
 }) => {
     // Mock data for the article
-    const article = articles.find(article => article?.slug === slug)
+    const article = articles.find(article => article?.slug === slug);
+    const randomArticles = getThreeRandomArticles(articles);
 
     return (
         <div className="bg-gray-100 py-12">
@@ -50,15 +60,11 @@ const NewsArticle = ({ params: { id: slug } }: {
                         <div className="bg-white p-4 md:p-6 rounded-lg shadow-md mb-6">
                             <h4 className="text-xl font-bold mb-4 text-gray-800">Related Articles</h4>
                             <ul>
-                                <li className="mb-4 break-words">
-                                    <a href="#" className="text-teal-600 hover:underline">How to Style Your Living Room</a>
-                                </li>
-                                <li className="mb-4 break-words">
-                                    <a href="#" className="text-teal-600 hover:underline">10 Tips for a Cozy Home</a>
-                                </li>
-                                <li className="break-words">
-                                    <a href="#" className="text-teal-600 hover:underline">The Best Decor Trends of 2023</a>
-                                </li>
+                                {randomArticles.map((article, index) => (
+                                    <li key={index} className="mb-4 break-words">
+                                        <Link href={`/news/${article.slug}`} className="text-teal-600 hover:underline">{article.title}</Link>
+                                    </li>
+                                ))}
                             </ul>
                         </div>
                         <div className="bg-white p-4 md:p-6 rounded-lg shadow-md">

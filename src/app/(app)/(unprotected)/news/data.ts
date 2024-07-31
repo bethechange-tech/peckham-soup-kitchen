@@ -3,7 +3,7 @@ export const articles = [
         id: 1,
         title: 'Community Food Drive',
         author: "John Doe",
-        image: 'https://via.placeholder.com/400x300?text=Community+Food+Drive',
+        image: 'https://via.placeholder.com/400x300',
         link: '/news/community-food-drive',
         description: 'Join us for our upcoming food drive to support those in need in our community.',
         extendedDescription: `
@@ -70,7 +70,7 @@ export const articles = [
     {
         id: 2,
         title: 'Volunteer Spotlight',
-        image: 'https://via.placeholder.com/400x300?text=Volunteer+Spotlight',
+        image: 'https://via.placeholder.com/400x300',
         link: '/news/volunteer-spotlight',
         description: 'Highlighting the incredible work of our volunteers who make our mission possible.',
         extendedDescription: 'Our volunteers are the backbone of our organization. This spotlight features the stories and contributions of volunteers who have gone above and beyond in their service. From organizing events to assisting with daily operations, these individuals exemplify the spirit of giving and community service. We are incredibly grateful for their dedication and hard work, which helps us achieve our goals and make a positive impact.',
@@ -81,7 +81,7 @@ export const articles = [
     {
         id: 3,
         title: 'Healthy Eating Initiative',
-        image: 'https://via.placeholder.com/400x300?text=Healthy+Eating+Initiative',
+        image: 'https://via.placeholder.com/400x300',
         link: '/news/healthy-eating',
         description: 'Promoting healthy eating habits within the community through our new initiative.',
         extendedDescription: 'Our Healthy Eating Initiative is designed to educate the community about the importance of nutrition and healthy eating habits. Through workshops, cooking demonstrations, and nutritional counseling, we aim to provide the resources and knowledge needed to make healthier food choices. This initiative is part of our broader effort to promote overall well-being and prevent diet-related health issues.',
@@ -92,7 +92,7 @@ export const articles = [
     {
         id: 4,
         title: 'New Community Center Opening',
-        image: 'https://via.placeholder.com/400x300?text=Community+Center+Opening',
+        image: 'https://via.placeholder.com/400x300',
         link: '/news/community-center-opening',
         description: 'We are excited to announce the opening of our new community center this fall.',
         extendedDescription: 'Our new community center is set to open this fall, providing a space for various community activities and services. The center will feature a state-of-the-art gym, a library, meeting rooms, and a café. It will serve as a hub for community engagement, offering programs and events for all ages. We invite everyone to join us for the grand opening and take advantage of the facilities and services we will offer.',
@@ -103,7 +103,7 @@ export const articles = [
     {
         id: 5,
         title: 'Back to School Drive Success',
-        image: 'https://via.placeholder.com/400x300?text=Back+to+School+Drive',
+        image: 'https://via.placeholder.com/400x300',
         link: '/news/back-to-school-drive',
         description: 'A look back at the success of our recent Back to School drive and the impact it had.',
         extendedDescription: 'Our Back to School Drive was a tremendous success, thanks to the generosity of our community members. We were able to provide school supplies to hundreds of students, ensuring they have the tools they need for a successful academic year. This drive not only alleviates the financial burden on families but also sets students up for success. We thank everyone who contributed and made this event possible.',
@@ -114,7 +114,7 @@ export const articles = [
     {
         id: 6,
         title: 'Mental Health Awareness Week',
-        image: 'https://via.placeholder.com/400x300?text=Mental+Health+Awareness',
+        image: 'https://via.placeholder.com/400x300',
         link: '/news/mental-health-awareness',
         description: 'Join us for a series of events focusing on mental health awareness and support.',
         extendedDescription: 'Mental Health Awareness Week is an annual event aimed at promoting mental health and well-being. This year, we have organized a series of workshops, talks, and activities to raise awareness and provide support to those struggling with mental health issues. Our goal is to break the stigma surrounding mental health and encourage open conversations. We invite everyone to participate and learn more about maintaining mental well-being.',

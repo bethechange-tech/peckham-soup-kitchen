@@ -1,6 +1,8 @@
 'use client';
 import Image from 'next/image';
+import { motion } from 'framer-motion';
 import Link from 'next/link';
+import { services } from './data';
 
 export default function Home() {
   return (
@@ -29,87 +31,36 @@ export default function Home() {
             Our Services
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
-            <div
-              className="relative bg-cover bg-center bg-no-repeat p-4 md:p-6 rounded-lg shadow-md hover:shadow-xl transform transition-transform duration-300 hover:scale-105"
-              style={{ backgroundImage: "url('/images/friday-food-hub.png')" }}
-            >
-              <div className="absolute inset-0 bg-black opacity-60 rounded-lg"></div>
-              <div className="relative z-10 text-left">
-                <div className="flex items-center justify-center h-12 w-12 bg-teal-800 bg-opacity-75 rounded-full mb-4">
-                  <Image
-                    src="/icons/friday-food-hub-icon.png"
-                    alt="Friday Food Hub Icon"
-                    width={24}
-                    height={24}
-                  />
+            {services.map((service, index) => (
+              <motion.div
+                key={index}
+                className="relative bg-cover bg-center bg-no-repeat p-4 md:p-6 rounded-lg shadow-md hover:shadow-xl transform transition-transform duration-300"
+                style={{ backgroundImage: `url('${service.image}')` }}
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5, delay: index * 0.2 }}
+                whileHover={{ scale: 1.05 }}
+              >
+                <div className="absolute inset-0 bg-black opacity-60 rounded-lg"></div>
+                <div className="relative z-10 text-left">
+                  <div className="flex items-center justify-center h-12 w-12 bg-teal-800 bg-opacity-75 rounded-full mb-4">
+                    <Image
+                      src={service.icon}
+                      alt={`${service.title} Icon`}
+                      width={24}
+                      height={24}
+                    />
+                  </div>
+                  <h3 className="text-xl md:text-2xl font-bold mb-2 text-white">
+                    {service.title}
+                  </h3>
+                  <p className="text-gray-200 mb-4">{service.description}</p>
                 </div>
-                <h3 className="text-xl md:text-2xl font-bold mb-2 text-white">
-                  Friday Food Hub
-                </h3>
-                <p className="text-gray-200 mb-4">
-                  Open Food Provision for the Southwark Community at Dene Community Centre
-                  <br />
-                  <strong>Every Friday from 3:30PM till 7:30PM</strong>
-                </p>
-              </div>
-            </div>
-            <div
-              className="relative bg-cover bg-center bg-no-repeat p-4 md:p-6 rounded-lg shadow-md hover:shadow-xl transform transition-transform duration-300 hover:scale-105"
-              style={{ backgroundImage: "url('/images/wednesday-food-outreach.jpeg')" }}
-            >
-              <div className="absolute inset-0 bg-black opacity-60 rounded-lg"></div>
-              <div className="relative z-10 text-left">
-                <div className="flex items-center justify-center h-12 w-12 bg-teal-800 bg-opacity-75 rounded-full mb-4">
-                  <Image
-                    src="/icons/wednesday-food-outreach-icon.png"
-                    alt="Wednesday Food Outreach Icon"
-                    width={24}
-                    height={24}
-                  />
-                </div>
-                <h3 className="text-xl md:text-2xl font-bold mb-2 text-white">
-                  Wednesday Food Outreach
-                </h3>
-                <p className="text-gray-200 mb-4">
-                  Food Deliveries to Vulnerable Members of the Southwark Community
-                  <br />
-                  <strong>Every Wednesday from 3:30PM till 5:00PM</strong>
-                </p>
-              </div>
-            </div>
-            <div
-              className="relative bg-cover bg-center bg-no-repeat p-4 md:p-6 rounded-lg shadow-md hover:shadow-xl transform transition-transform duration-300 hover:scale-105"
-              style={{ backgroundImage: "url('/images/initiatives.png')" }}
-            >
-              <div className="absolute inset-0 bg-black opacity-60 rounded-lg"></div>
-              <div className="relative z-10 text-left">
-                <div className="flex items-center justify-center h-12 w-12 bg-teal-800 bg-opacity-75 rounded-full mb-4">
-                  <Image
-                    src="/icons/initiatives-icon.png"
-                    alt="Initiatives Icon"
-                    width={24}
-                    height={24}
-                  />
-                </div>
-                <h3 className="text-xl md:text-2xl font-bold mb-2 text-white">
-                  Initiatives
-                </h3>
-                <p className="text-gray-200 mb-4">
-                  <strong>Be Active Programme:</strong> March - May 2023
-                  <br />
-                  <br />
-                  <strong>Summer Football Camp:</strong> 21st - 25th August 2023
-                  <br />
-                  <br />
-                  <strong>Back to School Drive:</strong> 26th August 2023
-                  <br />
-                  <br />
-                  <strong>Mentoring for Young People:</strong> Ongoing
-                </p>
-              </div>
-            </div>
+              </motion.div>
+            ))}
           </div>
         </section>
+
 
         {/* How to Volunteer Section */}
         <section className="mb-8 md:mb-16">
@@ -121,7 +72,7 @@ export default function Home() {
               {
                 title: "Meal Preparation",
                 description: "Assist in preparing nutritious meals for our community members. Help us cook and package meals every weekday.",
-                icon: "/icons/meal-preparation.png", // Replace with actual icon paths
+                icon: "/icons/meal-preparation.png",
               },
               {
                 title: "Food Distribution",
@@ -153,11 +104,14 @@ export default function Home() {
                 key={index}
                 className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transform transition-transform duration-300 hover:scale-105 flex flex-col items-center"
               >
-                <img
-                  src={volunteer.icon}
-                  alt={`${volunteer.title} Icon`}
-                  className="mb-4 h-16 w-16"
-                />
+                <div className="mb-4 h-16 w-16 relative">
+                  <Image
+                    src={volunteer.icon}
+                    alt={`${volunteer.title} Icon`}
+                    layout="fill"
+                    objectFit="contain"
+                  />
+                </div>
                 <h4 className="text-xl md:text-2xl font-bold mb-2 text-teal-700">
                   {volunteer.title}
                 </h4>
@@ -200,11 +154,15 @@ export default function Home() {
                 key={index}
                 className="relative bg-white rounded-lg shadow-lg hover:shadow-xl transform transition-transform duration-300 hover:scale-105"
               >
-                <img
-                  src={program.image}
-                  alt={program.title}
-                  className="w-full h-56 object-cover rounded-t-lg"
-                />
+                <div className="relative w-full h-56">
+                  <Image
+                    src={program.image}
+                    alt={program.title}
+                    layout="fill"
+                    objectFit="cover"
+                    className="rounded-t-lg"
+                  />
+                </div>
                 <div className="p-6">
                   <h4 className="text-2xl font-bold text-gray-800 mb-2">
                     {program.title}

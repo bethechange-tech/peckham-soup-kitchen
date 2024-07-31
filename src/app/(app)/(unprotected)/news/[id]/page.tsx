@@ -1,46 +1,81 @@
-'use client';
-
 import React from 'react';
-import ReactMarkdown from 'react-markdown';
-import remarkGfm from 'remark-gfm'
 import Image from 'next/image';
 import { articles } from '../data';
 
-const NewsArticle = () => {
-    // Assuming we're displaying the first article for this example
-    const article = articles[0];
-
-    if (!article) {
-        return <p>Article not found</p>;
-    }
+const NewsArticle = ({ params: { id: slug } }: {
+    params: { id: string }
+}) => {
+    // Mock data for the article
+    const article = articles.find(article => article?.slug === slug)
 
     return (
-        <div className="bg-gray-50 min-h-screen p-4 md:p-6">
-            <div className="max-w-5xl mx-auto bg-white p-6 rounded-lg shadow-lg">
-                <div className="flex flex-col lg:flex-row">
-                    {/* Article Image Section */}
-                    <div className="w-full lg:w-1/2 mb-6 lg:mb-0">
-                        <Image
-                            src={article.image}
-                            alt={article.title}
-                            layout="responsive"
-                            width={700}
-                            height={400}
-                            className="rounded-lg object-cover"
-                        />
-                    </div>
+        <div className="bg-gray-100 py-12">
+            <div className="container mx-auto px-4 md:px-6 lg:px-8">
+                <div className="md:flex md:space-x-6">
+                    {/* Main Content */}
+                    <div className="md:w-2/3 bg-white p-4 md:p-6 rounded-lg shadow-md overflow-hidden">
+                        {/* Article Metadata */}
+                        <div className="mb-6">
+                            <h1 className="text-3xl font-bold text-gray-800 mb-4 break-words">
+                                {article?.title}
+                            </h1>
+                            <div className="flex items-center text-sm text-gray-500 break-words">
+                                <span>By {article?.author}</span>
+                                <span className="mx-2">|</span>
+                                <span>{article?.category}</span>
+                                <span className="mx-2">|</span>
+                                <span>{article?.date}</span>
+                            </div>
+                        </div>
 
-                    {/* Article Details Section */}
-                    <div className="lg:w-1/2 lg:pl-6">
-                        <h1 className="text-2xl md:text-3xl font-bold text-blue-900 mb-4">{article.title}</h1>
-                        <p className="text-gray-700 font-semibold">{article.category}</p>
-                        <p className="text-gray-500 mb-4">{new Date(article.date).toDateString()}</p>
+                        {/* Article Image */}
+                        <div className="mb-6">
+                            <Image
+                                src={article?.image || ''}
+                                alt="Article Image"
+                                width={800}
+                                height={450}
+                                className="rounded-lg object-cover w-full"
+                            />
+                        </div>
 
-                        <div className="prose max-w-none text-gray-700 mb-6 lg:h-72 overflow-y-auto">
-                            <ReactMarkdown remarkPlugins={[remarkGfm]}>{article.description}</ReactMarkdown>
-                            <ReactMarkdown remarkPlugins={[remarkGfm]}>{article.extendedDescription}</ReactMarkdown>
+                        {/* Article Content */}
+                        <div className="prose max-w-none text-gray-700 whitespace-normal break-words">
+                            <p className='break-normal' style={{ whiteSpace: 'pre-line' }}>{article?.extendedDescription}</p>
                         </div>
                     </div>
+
+                    {/* Sidebar */}
+                    <aside className="md:w-1/3 mt-6 md:mt-0">
+                        <div className="bg-white p-4 md:p-6 rounded-lg shadow-md mb-6">
+                            <h4 className="text-xl font-bold mb-4 text-gray-800">Related Articles</h4>
+                            <ul>
+                                <li className="mb-4 break-words">
+                                    <a href="#" className="text-teal-600 hover:underline">How to Style Your Living Room</a>
+                                </li>
+                                <li className="mb-4 break-words">
+                                    <a href="#" className="text-teal-600 hover:underline">10 Tips for a Cozy Home</a>
+                                </li>
+                                <li className="break-words">
+                                    <a href="#" className="text-teal-600 hover:underline">The Best Decor Trends of 2023</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div className="bg-white p-4 md:p-6 rounded-lg shadow-md">
+                            <h4 className="text-xl font-bold mb-4 text-gray-800">Subscribe to Newsletter</h4>
+                            <p className="text-gray-600 mb-4 break-words">Stay updated with the latest news and articles.</p>
+                            <form>
+                                <input
+                                    type="email"
+                                    className="w-full p-3 border border-gray-300 rounded-lg mb-4"
+                                    placeholder="Enter your email"
+                                />
+                                <button className="w-full bg-teal-600 text-white py-2 rounded-lg shadow-md hover:bg-teal-700">
+                                    Subscribe
+                                </button>
+                            </form>
+                        </div>
+                    </aside>
                 </div>
             </div>
         </div>

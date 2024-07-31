@@ -68,7 +68,7 @@ const Page = () => {
                         <div className="p-4">
                             <h2 className="text-xl font-bold text-teal-600 mb-2">{article.title}</h2>
                             <p className="text-gray-600 mb-4">{article.description}</p>
-                            <Link href={article.link} legacyBehavior><a className="text-teal-600 hover:underline">Read more</a></Link>
+                            <Link href={`/news/${article.slug}`} legacyBehavior><a className="text-teal-600 hover:underline">Read more</a></Link>
                         </div>
                     </div>
                 ))}

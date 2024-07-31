@@ -8,6 +8,7 @@ export const metadata: Metadata = {
   description: "Providing essential services and support to the Southwark community through food provision and community programs.",
 };
 
+
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,

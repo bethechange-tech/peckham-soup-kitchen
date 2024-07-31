@@ -88,6 +88,11 @@ const Header = () => {
                             Donate
                         </div>
                     </Link>
+                    <Link href="/gallery">
+                        <div className={`text-white hover:underline ${router === '/gallery' ? 'font-bold underline' : ''}`}>
+                            Gallery
+                        </div>
+                    </Link>
                 </nav>
                 <div className="md:hidden">
                     <button
@@ -154,6 +159,12 @@ const Header = () => {
                         <div onClick={closeMenu} className={`flex items-center py-4 px-6 text-white hover:bg-teal-700 ${router === '/donate' ? 'font-bold underline' : ''}`}>
                             <span className="mr-2">💰</span>
                             Donate
+                        </div>
+                    </Link>
+                    <Link href="/gallery">
+                        <div onClick={closeMenu} className={`flex items-center py-4 px-6 text-white hover:bg-teal-700 ${router === '/gallery' ? 'font-bold underline' : ''}`}>
+                            <span className="mr-2">💰</span>
+                            Gallery
                         </div>
                     </Link>
                 </div>

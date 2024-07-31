@@ -64,7 +64,14 @@ const Page = () => {
             <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 px-6">
                 {filteredArticles.map((article, index) => (
                     <div key={index} className="bg-white rounded-lg shadow-md overflow-hidden transform hover:scale-105 transition-transform duration-300">
-                        <Image src={article.image} alt={article.title} width={400} height={250} className="w-full object-cover" />
+                        <Image
+                            src={article.image}
+                            alt={article.title}
+                            width={400}
+                            height={250}
+                            className="w-full object-cover"
+                            loading="lazy"
+                        />
                         <div className="p-4">
                             <h2 className="text-xl font-bold text-teal-600 mb-2">{article.title}</h2>
                             <p className="text-gray-600 mb-4">{article.description}</p>

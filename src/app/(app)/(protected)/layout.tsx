@@ -1,11 +1,18 @@
+import { getMeUser } from "@/app/_utilities/getMeUser";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header/index";
 
-export default function RootLayout({
+
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
+  await getMeUser({
+    nullUserRedirect: `/login`,
+  });
+
   return (
     <>
       <Header />

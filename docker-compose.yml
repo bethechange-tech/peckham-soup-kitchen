@@ -1,0 +1,17 @@
+services:
+  postgres:
+    container_name: postgres-psk
+    image: postgis/postgis:15-master
+    restart: always
+    ports:
+      - "5434:5432" # Host port 5434 maps to container port 5432
+    volumes:
+      - psk_pgdata:/var/lib/postgresql/data # Named volume for PostgreSQL data
+      - ./docker/pg-init-scripts:/docker-entrypoint-initdb.d # Bind mount for initialization scripts
+    environment:
+      - POSTGRES_USER=POSTGRES_USER
+      - POSTGRES_PASSWORD=POSTGRES_PASSWORD
+      - POSTGRES_MULTIPLE_DATABASES=psk
+
+volumes:
+  psk_pgdata:

@@ -1,4 +1,4 @@
-import { BasePayload, CollectionSlug, PayloadRequest } from 'payload';
+import { BasePayload, BulkOperationResult, CollectionSlug, DataFromCollectionSlug, PayloadRequest, Where } from 'payload';
 import { Config } from '@/payload-types';
 
 type ValueOf<T> = T[keyof T];
@@ -85,7 +85,7 @@ export class PayloadTransactionManager {
      * @example
      * const newDocument = await transactionManager.create('my-collection', { name: 'Example' });
      */
-    public create = async <T>(collection: CollectionSlug, data: T): Promise<T> => {
+    public create = async <T>(collection: CollectionSlug, data: T): Promise<DataFromCollectionSlug<CollectionSlug>> => {
         console.log(`Creating new document in collection: ${collection} with data:`, data);
         const result = await this.payload?.create({
             req: this.req,
@@ -93,7 +93,7 @@ export class PayloadTransactionManager {
             data: data as any,
         });
         console.log("Document created:", result);
-        return result as T;
+        return result;
     }
 
     /**
@@ -105,7 +105,7 @@ export class PayloadTransactionManager {
      * @example
      * const updatedDocument = await transactionManager.update('my-collection', 'document-id', { name: 'Updated Example' });
      */
-    public update = async (collection: CollectionSlug, id: string, data: any): Promise<any> => {
+    public update = async (collection: CollectionSlug, id: string, data: any): Promise<BulkOperationResult<CollectionSlug>> => {
         console.log(`Updating document in collection: ${collection}, ID: ${id}, with data:`, data);
         const result = await this.payload?.update({
             req: this.req,
@@ -170,25 +170,27 @@ export class PayloadTransactionManager {
     }
 
     /**
- * Upserts a document in the specified collection.
- * If the document exists (based on the provided criteria), it updates the document with the provided data.
- * If the document does not exist, it creates a new document.
- * 
- * @param collection - The slug of the collection to upsert the document in.
- * @param criteria - The criteria to find the document by (e.g., { email: 'user@example.com' }).
- * @param data - The data to upsert (create or update).
- * @returns A promise that resolves with the upserted document.
- * @example
- * const upsertedDocument = await transactionManager.upsert('users', { email: 'user@example.com' }, { name: 'User', email: 'user@example.com' });
- */
-    public upsert = async <T>(collection: CollectionSlug, criteria: Partial<T>, data: T): Promise<T> => {
+     * Upserts a document in the specified collection.
+     * If the document exists (based on the provided criteria), it updates the document with the provided data.
+     * If the document does not exist, it creates a new document.
+     * 
+     * @param collection - The slug of the collection to upsert the document in.
+     * @param criteria - The criteria to find the document by (e.g., { email: 'user@example.com' }).
+     * @param data - The data to upsert (create or update). Note that this should be partial data to prevent overwriting fields.
+     * @returns A promise that resolves with the upserted document.
+     */
+    public upsert = async <T>(
+        collection: CollectionSlug,
+        criteria: Where,
+        data: Partial<T> // Use Partial to ensure only certain fields are updated
+    ) => {
         console.log(`Upserting document in collection: ${collection} with criteria:`, criteria);
 
         // Search for the existing document
         const existingDocument = await this.payload.find({
             req: this.req,
             collection,
-            where: criteria as any,
+            where: criteria,
             limit: 1, // We only need to check for the existence of one document
         });
 
@@ -196,13 +198,26 @@ export class PayloadTransactionManager {
             // Document exists, so we update it
             const docId = existingDocument.docs[0].id as any;
             console.log(`Document found with ID: ${docId}, updating...`);
-            return await this.update(collection, docId, data);
+            delete (data as any)?.name
+
+            // Perform a partial update to ensure existing fields aren't overwritten unless intended
+            return this.payload.update({
+                req: this.req,
+                collection,
+                id: docId,
+                data: { ...existingDocument.docs[0], ...data } // Merge existing doc with new data
+            });
         } else {
             // Document does not exist, so we create a new one
             console.log(`No document found matching criteria, creating a new document...`);
-            return await this.create(collection, data);
+            return this.payload.create({
+                req: this.req,
+                collection,
+                data,
+            });
         }
-    }
+    };
+
 
     /**
      * Deletes multiple documents from the specified collection.

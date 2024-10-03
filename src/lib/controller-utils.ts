@@ -1,4 +1,4 @@
-import * as jwt from "jsonwebtoken";
+import jwt from "jsonwebtoken";
 import * as crypto from "crypto";
 import bcrypt from "bcryptjs";
 import { cookies } from "next/headers";
@@ -49,13 +49,7 @@ export class ControllerUtils {
         options?: jwt.VerifyOptions
     ): Promise<JwtPayload> => {
         return new Promise((resolve, reject) => {
-            jwt.verify(token, secret, options, (err: any, decodedToken: JwtPayload) => {
-                if (err) {
-                    return reject(err);
-                }
-
-                resolve(decodedToken as JwtPayload);
-            });
+            return jwt.verify(token, secret, options);
         });
     };
 

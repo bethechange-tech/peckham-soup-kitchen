@@ -7,6 +7,8 @@ import { fileURLToPath } from 'url'
 import Users from './collections/Users'
 import Tags from './collections/Tags'
 import Images from './collections/Images'
+import Articles from './collections/Articles'
+import Categories from './collections/Categories'
 
 
 const filename = fileURLToPath(import.meta.url)
@@ -49,7 +51,9 @@ export default buildConfig({
   collections: [
     Users,
     Tags,
-    Images
+    Images,
+    Articles,
+    Categories
   ],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
@@ -77,10 +81,6 @@ export default buildConfig({
       limit: 1,
     });
 
-    console.log('----88----');
-    console.log(existingUsers);
-    console.log('====88====');
-
     // portalPermissionsTravellerTracker
     if (existingUsers.docs.length === 0) {
       await payload.create({
@@ -94,7 +94,5 @@ export default buildConfig({
       });
     }
   },
-  plugins: [
-    // storage-adapter-placeholder
-  ],
+  plugins: [],
 })

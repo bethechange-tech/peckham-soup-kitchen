@@ -1,18 +1,24 @@
-"use client";
+'use client';
+import React, { useState } from 'react';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm, SubmitHandler } from 'react-hook-form';
+import { z } from 'zod';
+import Link from 'next/link';
+import Image from 'next/image';
+import axios from 'axios';
+import { FiMail, FiLock } from 'react-icons/fi';
 
-import React, { useState } from "react";
-import { useForm, SubmitHandler } from "react-hook-form";
-import { useRouter } from "next/navigation";
+const loginFormSchema = z.object({
+    email: z.string().email({ message: 'Invalid email address.' }),
+    password: z.string().min(1, { message: 'Password is required' }),
+});
 
-interface LoginFormData {
-    email: string;
-    password: string;
-}
+type LoginFormData = z.infer<typeof loginFormSchema>;
 
 function LoadingSpinner() {
     return (
         <svg
-            className="animate-spin h-5 w-5 text-gray-500"
+            className="animate-spin h-8 w-8 text-purple-600"
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
@@ -28,142 +34,159 @@ function LoadingSpinner() {
             <path
                 className="opacity-75"
                 fill="currentColor"
-                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
             ></path>
         </svg>
     );
 }
 
 export default function ProfileForm() {
-    const router = useRouter();
     const [loading, setLoading] = useState(false);
-    const [error, setError] = useState<string>("");
+    const [error, setError] = useState<string>('');
 
-    const {
-        register,
-        handleSubmit,
-        formState: { errors },
-    } = useForm<LoginFormData>({
+    const { register, handleSubmit, formState: { errors } } = useForm<LoginFormData>({
+        resolver: zodResolver(loginFormSchema),
         defaultValues: {
-            email: "",
-            password: "",
+            email: '',
+            password: '',
         },
     });
 
-    const validateEmail = (email: string) => {
-        const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        return regex.test(email) || "Invalid email address.";
-    };
-
     const loginHandler: SubmitHandler<LoginFormData> = async (data) => {
-        setError("");
+        setError('');
         setLoading(true);
+
         try {
-            const response = await fetch("/api/login", {
-                method: "POST",
+            // const response = await axios.post(
+            //     `${process.env.NEXT_PUBLIC_SERVER_URL}/auth/login`,
+            //     data,
+            //     {
+            //         headers: {
+            //             'Content-Type': 'application/json',
+            //         },
+            //         withCredentials: true,
+            //     }
+            // );
+
+            await axios.post('/api/login', data, {
                 headers: {
-                    "Content-Type": "application/json",
+                    'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(data),
+                withCredentials: true,
             });
 
-            const responseData = await response.json();
-
-            if (response.ok) {
-                router.push("/");
-            } else {
-                setError(responseData.message || "Failed to log in");
-            }
-        } catch (err) {
-            setError(
-                "There was a problem logging into your account. Please try again."
-            );
+            // Redirect to home page
+            window.location.href = '/';
+        } catch (err: any) {
+            setError('There was a problem logging into your account. Please try again.');
         } finally {
             setLoading(false);
         }
     };
 
     return (
-        <div className="bg-gray-500 font-[sans-serif] text-[#333]">
-            <div className="min-h-screen flex flex-col items-center justify-center py-6 px-4">
-                <div className="max-w-md w-full border py-8 px-6 rounded border-gray-300 bg-white">
-                    <a>
-                        <img src="/logo-removebg-preview.png" alt="logo" className="w-40 mb-10" />
-                    </a>
-                    <h2 className="text-center text-3xl font-extrabold">
-                        Log in to your account
-                    </h2>
-                    <form onSubmit={handleSubmit(loginHandler)} className="mt-10 space-y-4">
-                        <div>
-                            <label className="block text-sm font-medium">Email</label>
+        <div className="bg-gray-100 min-h-screen flex flex-col justify-center items-center px-4 sm:px-6 lg:px-8">
+            <div className="max-w-md w-full bg-white rounded-lg shadow-xl p-8 sm:p-10">
+                <Link href="/">
+                    <Image src="/logo-no-background.png" alt="logo" className="mx-auto mb-8" height={100} width={100} />
+                </Link>
+                <h2 className="text-3xl font-bold text-center text-gray-900 mb-8">
+                    Log in to your account
+                </h2>
+                <form onSubmit={handleSubmit(loginHandler)} className="space-y-6">
+                    <div className="relative">
+                        <label className="block text-sm font-medium text-gray-700">
+                            Email
+                        </label>
+                        <div className="mt-1 relative rounded-lg shadow-sm">
+                            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <FiMail className="text-gray-400" />
+                            </div>
                             <input
                                 type="email"
                                 placeholder="Email address"
-                                className="w-full text-sm px-4 py-3 rounded outline-none border-2 focus:border-purple-500"
-                                {...register("email", {
-                                    required: "Email is required",
-                                    validate: validateEmail,
-                                })}
+                                {...register('email')}
+                                className={`block w-full pl-10 p-3 border rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 focus:outline-none text-sm transition ${errors.email ? 'border-red-500' : 'border-gray-300'}`}
                             />
-                            {errors.email && (
-                                <span className="text-sm text-red-500">{errors.email.message}</span>
-                            )}
                         </div>
-                        <div>
-                            <label className="block text-sm font-medium">Password</label>
+                        {errors.email && (
+                            <p className="text-red-600 text-sm mt-2">{errors.email.message}</p>
+                        )}
+                    </div>
+                    <div className="relative">
+                        <label className="block text-sm font-medium text-gray-700">
+                            Password
+                        </label>
+                        <div className="mt-1 relative rounded-lg shadow-sm">
+                            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <FiLock className="text-gray-400" />
+                            </div>
                             <input
                                 type="password"
                                 placeholder="Password"
-                                className="w-full text-sm px-4 py-3 rounded outline-none border-2 focus:border-purple-500"
-                                {...register("password", {
-                                    required: "Password is required",
-                                })}
+                                {...register('password')}
+                                className={`block w-full pl-10 p-3 border rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 focus:outline-none text-sm transition ${errors.password ? 'border-red-500' : 'border-gray-300'}`}
                             />
-                            {errors.password && (
-                                <span className="text-sm text-red-500">{errors.password.message}</span>
-                            )}
                         </div>
-                        {loading && (
-                            <div className="item-center justify-center py-3">
-                                <LoadingSpinner />
-                            </div>
+                        {errors.password && (
+                            <p className="text-red-600 text-sm mt-2">{errors.password.message}</p>
                         )}
-                        {error && (
-                            <span className="text-sm text-red-500 text-center py-3">
-                                {error}
-                            </span>
-                        )}
-                        <div className="flex items-center justify-between gap-4">
-                            <div className="flex items-center">
-                                <input
-                                    id="remember-me"
-                                    name="remember-me"
-                                    type="checkbox"
-                                    className="h-4 w-4 shrink-0 text-purple-600 focus:ring-purple-500 border-gray-300 rounded"
-                                />
-                                <label htmlFor="remember-me" className="ml-3 block text-sm">
-                                    Remember me
-                                </label>
-                            </div>
-                            <div>
-                                <a
-                                    href="javascript:void(0);"
-                                    className="text-sm text-purple-600 hover:text-purple-500"
-                                >
+                    </div>
+
+                    {loading && (
+                        <div className="flex justify-center py-3">
+                            <LoadingSpinner />
+                        </div>
+                    )}
+
+                    {error && (
+                        <p className="text-center text-red-600 text-sm mt-4">
+                            {error}
+                        </p>
+                    )}
+
+                    <div className="flex items-center justify-between">
+                        <div className="flex items-center">
+                            <input
+                                id="remember-me"
+                                name="remember-me"
+                                type="checkbox"
+                                className="h-4 w-4 text-purple-600 focus:ring-purple-500 border-gray-300 rounded"
+                            />
+                            <label htmlFor="remember-me" className="ml-2 text-sm text-gray-700">
+                                Remember me
+                            </label>
+                        </div>
+                        <div>
+                            <Link href="/forgot-password">
+                                <span className="text-sm text-purple-600 hover:text-purple-500 cursor-pointer">
                                     Forgot Password?
-                                </a>
-                            </div>
+                                </span>
+                            </Link>
                         </div>
-                        <div className="!mt-10">
-                            <button
-                                type="submit"
-                                className="w-full py-2.5 px-4 text-sm rounded text-white bg-purple-600 hover:bg-purple-700 focus:outline-none"
-                            >
-                                Submit
-                            </button>
-                        </div>
-                    </form>
-                </div>
+                    </div>
+
+                    <div className="mt-6">
+                        <button
+                            type="submit"
+                            className="w-full flex justify-center py-2 px-4 border border-transparent rounded-lg shadow-lg text-sm font-medium text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 transition-colors"
+                            disabled={loading}
+                        >
+                            {loading ? 'Logging in...' : 'Log in'}
+                        </button>
+                    </div>
+
+                    <div className="text-center mt-6">
+                        <p className="text-sm text-gray-600">
+                            Don’t have an account?{' '}
+                            <Link href="/signup">
+                                <span className="text-purple-600 hover:text-purple-500 cursor-pointer">
+                                    Sign up
+                                </span>
+                            </Link>
+                        </p>
+                    </div>
+                </form>
             </div>
         </div>
     );

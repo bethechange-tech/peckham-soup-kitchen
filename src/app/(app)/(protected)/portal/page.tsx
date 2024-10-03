@@ -2,21 +2,13 @@
 import React, { useState } from 'react';
 import {
     FaSearch,
-    FaBars,
     FaUserCircle,
     FaDollarSign
 } from 'react-icons/fa';
 import { useStore } from '../../../_zustand/store';
-import Sidebar from '@/components/Portal/SideBar';
 
 const Dashboard = () => {
     const currentUser = useStore((state) => state.currentUser);
-    const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-
-    const toggleSidebar = () => {
-        setIsSidebarOpen(!isSidebarOpen);
-    };
-
     // Get current date
     const currentDate = new Date().toLocaleDateString('en-US', {
         year: 'numeric',

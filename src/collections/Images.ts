@@ -1,5 +1,4 @@
 import { CollectionConfig } from "payload";
-import { ensureFirstUserIsAdmin } from "./hooks/ensureFirstUserIsAdmin";
 import adminsAndUser from "./hooks/adminsAndUser";
 import { admins } from "./hooks/admins";
 
@@ -13,8 +12,14 @@ const Images: CollectionConfig = {
   },
   fields: [
     {
+      name: "id",
+      type: "text",
+      required: false,
+    },
+    {
       name: "name",
       type: "text",
+      unique: true
     },
     {
       name: "tag",

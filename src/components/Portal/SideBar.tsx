@@ -39,11 +39,11 @@ const Sidebar: React.FC<SidebarProps> = ({ isSidebarOpen, toggleSidebar }) => {
                 <nav className="flex flex-col space-y-4">
                     {[
                         { name: 'Dashboard', icon: <FaTachometerAlt />, href: '/portal' },
-                        { name: 'Payment Info', icon: <FaDollarSign />, href: '/payment-info' },
-                        { name: 'Registration', icon: <FaFileInvoiceDollar />, href: '/registration' },
-                        { name: 'Courses', icon: <FaBook />, href: '/courses' },
-                        { name: 'Event Page', icon: <FaCalendarDay />, href: '/portal/events' },  // Event Page
-                        { name: 'Image Page', icon: <FaImage />, href: '/portal/images' },        // Image Page
+                        // { name: 'Payment Info', icon: <FaDollarSign />, href: '/payment-info' },
+                        // { name: 'Registration', icon: <FaFileInvoiceDollar />, href: '/registration' },
+                        { name: 'Categories', icon: <FaBook />, href: '/portal/categories' },
+                        { name: 'Event', icon: <FaCalendarDay />, href: '/portal/events' },  // Event
+                        { name: 'Image', icon: <FaImage />, href: '/portal/images' },        // Image
                     ].map((item) => (
                         <Link key={item.name} href={item.href}>
                             <div className="flex items-center space-x-3 py-2 hover:bg-teal-700 transition-all rounded-lg px-3">
@@ -58,8 +58,8 @@ const Sidebar: React.FC<SidebarProps> = ({ isSidebarOpen, toggleSidebar }) => {
                 <div className="mt-auto">
                     <nav className="flex flex-col space-y-4">
                         {[
-                            { name: 'Drop Semester', icon: <FaCalendarAlt />, href: '/drop-semester' },
-                            { name: 'Result', icon: <FaRegFileAlt />, href: '/result' },
+                            // { name: 'Drop Semester', icon: <FaCalendarAlt />, href: '/drop-semester' },
+                            // { name: 'Result', icon: <FaRegFileAlt />, href: '/result' },
                             { name: 'Notice', icon: <FaBell />, href: '/notice' },
                             { name: 'Schedule', icon: <FaCalendarAlt />, href: '/schedule' }
                         ].map((item) => (

@@ -14,6 +14,8 @@ export interface Config {
     users: Users;
     tags: Tags;
     images: Images;
+    articles: Articles;
+    categories: Categories;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
   };
@@ -79,7 +81,7 @@ export interface Tags {
  * via the `definition` "images".
  */
 export interface Images {
-  id: number;
+  id: string;
   name?: string | null;
   tag?: (string | Tags)[] | null;
   urls?:
@@ -89,6 +91,36 @@ export interface Images {
       }[]
     | null;
   user?: (number | null) | Users;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "articles".
+ */
+export interface Articles {
+  id: string;
+  title: string;
+  slug: string;
+  author: string;
+  image: string;
+  link: string;
+  description: string;
+  extendedDescription?: string | null;
+  category: number | Categories;
+  date: string;
+  published?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "categories".
+ */
+export interface Categories {
+  id: number;
+  name: string;
+  description?: string | null;
   updatedAt: string;
   createdAt: string;
 }

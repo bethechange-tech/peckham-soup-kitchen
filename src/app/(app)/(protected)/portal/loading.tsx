@@ -1,5 +1,6 @@
 'use client';
-import { Audio } from 'react-loader-spinner';
+import React from 'react';
+import { LineWave } from 'react-loader-spinner';
 
 const loading = () => {
   return (
@@ -11,7 +12,7 @@ const loading = () => {
         alignItems: 'center',
       }}
     >
-      <Audio height='150' width='150' color='green' ariaLabel='loading' />
+      <LineWave height='150' width='150' color='green' ariaLabel='loading' />
     </div>
   );
 };

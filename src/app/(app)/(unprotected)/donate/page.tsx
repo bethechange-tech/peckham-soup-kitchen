@@ -208,7 +208,10 @@ const Page: React.FC = () => {
                 </div>
 
                 <div className="flex flex-col md:flex-row justify-center items-center gap-4">
-                    <button type="submit" className="bg-teal-600 text-white py-3 px-6 rounded-full shadow-md hover:bg-teal-700 focus:outline-none">
+                    <button
+                        type="submit"
+                        className="bg-gradient-to-r from-teal-500 to-green-400 text-white py-4 px-10 rounded-full shadow-lg hover:bg-gradient-to-r hover:from-teal-600 hover:to-green-500 focus:outline-none transform hover:scale-105 transition-transform ease-in-out duration-300 animate-pulse font-bold text-lg"
+                    >
                         Donate Now
                     </button>
                     <p className="text-gray-600">or</p>
